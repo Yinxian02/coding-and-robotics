@@ -1,6 +1,7 @@
 import React from "react";
 import "../styles/Landing.css";
 import LessonsComponent from "./LessonsComponent";
+import { lessonData } from "./lessonData";
 
 const LandingComponent: React.FC = () => {
   return (
@@ -22,7 +23,7 @@ const LandingComponent: React.FC = () => {
             <div className="start-button">start</div>
         </div>
         
-        <LessonsComponent />
+        <LessonsComponent lessonData={lessonData} />
     </div>
   );
 };

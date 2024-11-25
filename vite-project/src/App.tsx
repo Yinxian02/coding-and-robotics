@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import LandingComponent from './Landing';
+import LandingComponent from './components/LandingComponent';
 
 const App: React.FC = () => {
   return (

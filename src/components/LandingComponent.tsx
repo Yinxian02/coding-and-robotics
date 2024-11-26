@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useRef } from "react";
 import "../styles/Landing.css";
 import LessonsComponent from "./LessonsComponent";
 import { lessonData } from "./lessonData";
 
 const LandingComponent: React.FC = () => {
+  const lessonsRef = useRef<HTMLDivElement | null>(null);
+
+  const handleStartButtonClick = () => {
+    if (lessonsRef.current) {
+      lessonsRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start", 
+      });
+    }
+  };
+
   return (
     <div className="main-container">
         <div className="landing-container">
@@ -20,10 +31,12 @@ const LandingComponent: React.FC = () => {
             explore, create, and have loads of fun as you learn to code. 🎮
             </div>
 
-            <div className="start-button">start</div>
+            <div className="start-button" onClick={handleStartButtonClick}>start</div>
         </div>
         
-        <LessonsComponent lessonData={lessonData} />
+        <div className="lessons-container" ref={lessonsRef}>
+          <LessonsComponent lessonData={lessonData} />
+        </div>
     </div>
   );
 };

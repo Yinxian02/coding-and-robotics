@@ -5,6 +5,7 @@ interface Lesson {
   title: string;
   image: string;
   description: string;
+  slide: string;
 }
 
 interface LessonContainerProps {
@@ -40,10 +41,11 @@ const LessonsComponent: React.FC<LessonContainerProps> = ({ lessonData }) => {
 
       {popupIndex !== null && (
         <div className="popup">
+          <button className="close-button" onClick={() => setPopupIndex(null)}>
+            &times;
+          </button>
+          <h1 className="popup-title">{lessonData[popupIndex].title}</h1>
           <div className="popup-content">
-            <button className="close-button" onClick={() => setPopupIndex(null)}>
-              &times;
-            </button>
 
             {/* Tab Navigation */}
             <div className="tab-nav">
@@ -63,7 +65,21 @@ const LessonsComponent: React.FC<LessonContainerProps> = ({ lessonData }) => {
                 className={`tab ${activeTab === 2 ? 'active' : ''}`}
                 onClick={() => handleTabClick(2)}
               >
-                Instructions
+                Slides
+
+
+              </div>
+              <div
+                className={`tab ${activeTab === 3 ? 'active' : ''}`}
+                onClick={() => handleTabClick(3)}
+              >
+                Worksheet
+              </div>
+              <div
+                className={`tab ${activeTab === 4 ? 'active' : ''}`}
+                onClick={() => handleTabClick(4)}
+              >
+                References
               </div>
             </div>
 
@@ -80,18 +96,23 @@ const LessonsComponent: React.FC<LessonContainerProps> = ({ lessonData }) => {
                   <p>{lessonData[popupIndex].description}</p>
                 </div>
               )}
+
               {activeTab === 1 && (
                 <div className="tab-pane">
-                  {/* Add material content here */}
-                  <h3>Materials for {lessonData[popupIndex].title}</h3>
-                  <p>List of materials...</p>
                 </div>
-              )}
+                )}
+
+               
               {activeTab === 2 && (
                 <div className="tab-pane">
-                  {/* Add instructions content here */}
-                  <h3>Instructions for {lessonData[popupIndex].title}</h3>
-                  <p>Step-by-step instructions...</p>
+                  <div className="iframe-container">
+                    <iframe
+                      className="responsive-iframe"
+                      allow="fullscreen"
+                      src={lessonData[popupIndex]?.slide}
+                      title={lessonData[popupIndex].title}
+                    ></iframe>
+                  </div>
                 </div>
               )}
             </div>

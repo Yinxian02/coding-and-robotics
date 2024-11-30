@@ -4,8 +4,11 @@ import "../styles/Lessons.css";
 interface Lesson {
   title: string;
   image: string;
+  thumbnail?: string;
   description: string;
   slide: string;
+  worksheet: string;
+  references?: string[];
 }
 
 interface LessonContainerProps {
@@ -19,6 +22,11 @@ const LessonsComponent: React.FC<LessonContainerProps> = ({ lessonData }) => {
     const handleTabClick = (index: number) => {
       setActiveTab(index);
     };
+
+    const handleClosePopUp = () => {
+      setPopupIndex(null);
+      setActiveTab(0);  
+    }
 
   return (
     <div className="lesson-container">
@@ -41,7 +49,7 @@ const LessonsComponent: React.FC<LessonContainerProps> = ({ lessonData }) => {
 
       {popupIndex !== null && (
         <div className="popup">
-          <button className="close-button" onClick={() => setPopupIndex(null)}>
+          <button className="close-button" onClick={handleClosePopUp}>
             &times;
           </button>
           <h1 className="popup-title">{lessonData[popupIndex].title}</h1>
@@ -87,9 +95,8 @@ const LessonsComponent: React.FC<LessonContainerProps> = ({ lessonData }) => {
             <div className="tab-content">
               {activeTab === 0 && (
                 <div className="tab-pane">
-                  <h2>{lessonData[popupIndex].title}</h2>
                   <img
-                    src={lessonData[popupIndex].image}
+                    src={lessonData[popupIndex].thumbnail}
                     alt={lessonData[popupIndex].title}
                     className="popup-img"
                   />
@@ -107,7 +114,7 @@ const LessonsComponent: React.FC<LessonContainerProps> = ({ lessonData }) => {
                 <div className="tab-pane">
                   <div className="iframe-container">
                     <iframe
-                      className="responsive-iframe"
+                      className="class-slides"
                       allow="fullscreen"
                       src={lessonData[popupIndex]?.slide}
                       title={lessonData[popupIndex].title}
@@ -115,6 +122,19 @@ const LessonsComponent: React.FC<LessonContainerProps> = ({ lessonData }) => {
                   </div>
                 </div>
               )}
+
+              {activeTab === 3 && (
+                <div className="tab-pane">
+                  <iframe
+                    className="worksheet"
+                    src={lessonData[popupIndex]?.worksheet}
+                    width="60%"
+                    height="400px"
+                    title="Worksheet Viewer"
+                  ></iframe>
+                </div>
+              )}
+
             </div>
           </div>
         </div>

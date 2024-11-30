@@ -169,7 +169,7 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
   
-iframe {
+.class-slides {
     position: absolute;
     top: 0;
     left: 0;
@@ -177,3 +177,10 @@ iframe {
     height: 100%;
     border: none;
 }
+
+.worksheet {
+    background-color: #dcdcdc;
+    height: 600px; 
+    border: none;
+}
+

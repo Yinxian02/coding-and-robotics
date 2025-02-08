@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 import "../styles/Lessons.css";
 
+const TABS = {
+  OVERVIEW: 0,
+  SLIDES: 1,
+  WORKSHEET: 2,
+  REFERENCES: 3,
+};
+
 interface Lesson {
   title: string;
   image: string;
@@ -8,7 +15,9 @@ interface Lesson {
   description: string;
   slide: string;
   worksheet: string;
-  references?: string[];
+  printables?: string[];
+  materials?: string[];
+  references?: { title?: string; url: string; logo?: string }[];
 }
 
 interface LessonContainerProps {
@@ -25,7 +34,7 @@ const LessonsComponent: React.FC<LessonContainerProps> = ({ lessonData }) => {
 
     const handleClosePopUp = () => {
       setPopupIndex(null);
-      setActiveTab(0);  
+      setActiveTab(TABS.OVERVIEW);  
     }
 
   return (
@@ -58,34 +67,26 @@ const LessonsComponent: React.FC<LessonContainerProps> = ({ lessonData }) => {
             {/* Tab Navigation */}
             <div className="tab-nav">
               <div
-                className={`tab ${activeTab === 0 ? 'active' : ''}`}
+                className={`tab ${activeTab === TABS.OVERVIEW ? 'active' : ''}`}
                 onClick={() => handleTabClick(0)}
               >
                 Overview
               </div>
               <div
-                className={`tab ${activeTab === 1 ? 'active' : ''}`}
+                className={`tab ${activeTab === TABS.SLIDES ? 'active' : ''}`}
                 onClick={() => handleTabClick(1)}
               >
-                Materials
-              </div>
-              <div
-                className={`tab ${activeTab === 2 ? 'active' : ''}`}
-                onClick={() => handleTabClick(2)}
-              >
                 Slides
-
-
               </div>
               <div
-                className={`tab ${activeTab === 3 ? 'active' : ''}`}
-                onClick={() => handleTabClick(3)}
+                className={`tab ${activeTab === TABS.WORKSHEET ? 'active' : ''}`}
+                onClick={() => handleTabClick(2)}
               >
                 Worksheet
               </div>
               <div
-                className={`tab ${activeTab === 4 ? 'active' : ''}`}
-                onClick={() => handleTabClick(4)}
+                className={`tab ${activeTab === TABS.REFERENCES ? 'active' : ''}`}
+                onClick={() => handleTabClick(3)}
               >
                 References
               </div>
@@ -93,7 +94,7 @@ const LessonsComponent: React.FC<LessonContainerProps> = ({ lessonData }) => {
 
             {/* Tab Content */}
             <div className="tab-content">
-              {activeTab === 0 && (
+              {activeTab === TABS.OVERVIEW && (
                 <div className="tab-pane">
                   <img
                     src={lessonData[popupIndex].thumbnail}
@@ -103,14 +104,8 @@ const LessonsComponent: React.FC<LessonContainerProps> = ({ lessonData }) => {
                   <p>{lessonData[popupIndex].description}</p>
                 </div>
               )}
-
-              {activeTab === 1 && (
-                <div className="tab-pane">
-                </div>
-                )}
-
                
-              {activeTab === 2 && (
+              {activeTab === TABS.SLIDES && (
                 <div className="tab-pane">
                   <div className="iframe-container">
                     <iframe
@@ -123,7 +118,7 @@ const LessonsComponent: React.FC<LessonContainerProps> = ({ lessonData }) => {
                 </div>
               )}
 
-              {activeTab === 3 && (
+              {activeTab === TABS.WORKSHEET && (
                 <div className="tab-pane">
                   <iframe
                     className="worksheet"
@@ -134,6 +129,24 @@ const LessonsComponent: React.FC<LessonContainerProps> = ({ lessonData }) => {
                   ></iframe>
                 </div>
               )}
+
+              {activeTab === TABS.REFERENCES && (
+                <div className="tab-pane">
+                  <div className="references-container">
+                    {lessonData[popupIndex]?.references?.map((reference, index) => (
+                      <div key={index} className="reference-item">
+                        <img
+                          src={reference.logo}
+                          alt={reference.logo || "reference"}
+                          className="reference-icon"
+                        />
+                        <a href={reference.url || '#'} target="_blank" rel="noopener noreferrer">
+                          {reference.title}
+                        </a>
+                      </div>
+                    ))}
+                  </div>
+                  </div>)}
 
             </div>
           </div>

@@ -180,7 +180,16 @@
 
 .worksheet {
     background-color: #dcdcdc;
+    width: 100%;
+    max-width: 800px;
     height: 600px; 
     border: none;
+    border-radius: 8px;
+    box-sizing: border-box; 
 }
 
+.reference-icon {
+    width: 25px;
+    height: 25px;
+    object-fit: contain;
+}

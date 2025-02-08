@@ -101,7 +101,9 @@ const LessonsComponent: React.FC<LessonContainerProps> = ({ lessonData }) => {
                     alt={lessonData[popupIndex].title}
                     className="popup-img"
                   />
-                  <p>{lessonData[popupIndex].description}</p>
+                  <div className="description-card">
+                    <p>{lessonData[popupIndex].description}</p>
+                  </div>
                 </div>
               )}
                
@@ -134,16 +136,20 @@ const LessonsComponent: React.FC<LessonContainerProps> = ({ lessonData }) => {
                 <div className="tab-pane">
                   <div className="references-container">
                     {lessonData[popupIndex]?.references?.map((reference, index) => (
-                      <div key={index} className="reference-item">
-                        <img
-                          src={reference.logo}
-                          alt={reference.logo || "reference"}
-                          className="reference-icon"
-                        />
-                        <a href={reference.url || '#'} target="_blank" rel="noopener noreferrer">
-                          {reference.title}
-                        </a>
-                      </div>
+                      <a
+                        key={index}
+                        href={reference.url || "#"}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="reference-item"
+                      >
+                          <img
+                            src={reference.logo}
+                            alt={reference.logo || "reference"}
+                            className="w-5 h-5 object-contain reference-icon"
+                          />
+                          <span>{reference.title}</span>
+                      </a>
                     ))}
                   </div>
                   </div>)}

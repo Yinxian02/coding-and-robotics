@@ -158,6 +158,22 @@
     border-radius: 8px;
 }
 
+.description-card {
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 12px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    text-align: center;
+    font-size: 1.5rem;
+    color: black;
+    margin: 1rem;
+    font-size: 20px;
+    font-family: 'Quicksand', sans-serif; 
+    word-wrap: break-word;
+    display: flex;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
 .iframe-container {
     position: relative;
     width: 100%;
@@ -186,6 +202,23 @@
     border: none;
     border-radius: 8px;
     box-sizing: border-box; 
+}
+
+.reference-item {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 10px 0;
+    padding: 10px 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    cursor: pointer;
+    color: black;
+    font-family: 'Quicksand', sans-serif; 
+}
+
+.reference-item:hover{
+    background-color: rgba(255, 255, 255, 0.3);
 }
 
 .reference-icon {
